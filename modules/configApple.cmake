@@ -13,6 +13,9 @@ set(CMAKE_OSX_ARCHITECTURES x86_64)
 add_compile_options(-Wno-deprecated-declarations)
 
 
+# no longers exists, stop ofx warning
+add_compile_definitions(TARGET_OS_IPHONE_SIMULATOR=0)
+
 # ============================================================================
 # ------------------------------ Compile and Link ----------------------------
 add_executable( ${APP_NAME} MACOSX_BUNDLE ${${APP_NAME}_SOURCE_FILES} )
@@ -34,7 +37,7 @@ ADD_CUSTOM_COMMAND( TARGET ${APP_NAME}
 ADD_CUSTOM_COMMAND( TARGET of_shared
         POST_BUILD
         COMMAND ${CMAKE_INSTALL_NAME_TOOL}
-        ARGS -change ./libfmodex.dylib "@loader_path/libfmodex.dylib" $<TARGET_FILE:of_shared>
+        ARGS -change ./libfmod.dylib "@loader_path/libfmod.dylib" $<TARGET_FILE:of_shared>
         )
 
 ADD_CUSTOM_COMMAND( TARGET of_shared
