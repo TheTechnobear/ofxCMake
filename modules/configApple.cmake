@@ -9,7 +9,13 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -D__MACOSX_CORE__") # Removed "-s
 set_source_files_properties( ${OF_SOURCE_FILES} PROPERTIES COMPILE_FLAGS "-x objective-c++" )
 
 #set(CMAKE_OSX_ARCHITECTURES i386)
-set(CMAKE_OSX_ARCHITECTURES x86_64)
+#set(CMAKE_OSX_ARCHITECTURES x86_64)
+
+if(NOT CMAKE_OSX_ARCHITECTURES)
+        set(CMAKE_OSX_ARCHITECTURES "${CMAKE_HOST_SYSTEM_PROCESSOR}")
+endif()
+message(STATUS "CMAKE_OSX_ARCHITECTURES ${CMAKE_OSX_ARCHITECTURES}")
+
 add_compile_options(-Wno-deprecated-declarations)
 
 
@@ -34,6 +40,8 @@ ADD_CUSTOM_COMMAND( TARGET ${APP_NAME}
         )
 
 # TODO Explain the excecutable bindings
+
+
 ADD_CUSTOM_COMMAND( TARGET of_shared
         POST_BUILD
         COMMAND ${CMAKE_INSTALL_NAME_TOOL}
@@ -43,5 +51,6 @@ ADD_CUSTOM_COMMAND( TARGET of_shared
 ADD_CUSTOM_COMMAND( TARGET of_shared
         POST_BUILD
         COMMAND /bin/cp
-        ARGS ${LIB_FMODEX} ${PROJECT_SOURCE_DIR}/bin/${APP_NAME}.app/Contents/MacOS
+        ARGS ${LIB_FMOD} ${PROJECT_SOURCE_DIR}/bin/${APP_NAME}.app/Contents/Frameworks
         )
+

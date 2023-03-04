@@ -11,7 +11,7 @@ include_directories( ${OF_CORE_HEADERS} ${OF_ADDON_HEADERS} )
 # ============================================================================
 # ----------------------------- Setting Libraries ----------------------------
 add_library( core       OBJECT ${OF_SOURCE_FILES} )
-add_library( of_static     STATIC $<TARGET_OBJECTS:core> )
+add_library( of_static  STATIC $<TARGET_OBJECTS:core> )
 add_library( of_shared  SHARED $<TARGET_OBJECTS:core> )
 
 # -------------------------------- Linking --------------------------------
@@ -20,7 +20,7 @@ target_link_libraries(  of_static   ${OF_CORE_FRAMEWORKS} ${OF_ADDON_FRAMEWORKS}
 target_link_libraries(  of_shared   ${OF_CORE_FRAMEWORKS} ${OF_ADDON_FRAMEWORKS} ${OF_CORE_LIBS} )
 
 # -------------------------------- Properties --------------------------------
-set_target_properties( of_static    PROPERTIES OUTPUT_NAME openFrameworksStatic)
+set_target_properties( of_static PROPERTIES OUTPUT_NAME openFrameworksStatic)
 set_target_properties( of_shared PROPERTIES OUTPUT_NAME openFrameworksShared)
 
 # -------------------------- Copy OF Libs into CMake/libs --------------------
@@ -31,10 +31,11 @@ set_target_properties(  ${OFX_ADDONS_ACTIVE}
         )
 
 #TODO This does not copy the libs
-set_target_properties(  of_static PROPERTIES LIBRARY_OUTPUT_DIRECTORY    ${OF_CMAKE_LIBS} )
-set_target_properties(  of_static PROPERTIES ARCHIVE_OUTPUT_DIRECTORY    ${OF_CMAKE_LIBS} )
-set_target_properties(  of_shared PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${OF_CMAKE_LIBS} )
-set_target_properties(  of_shared PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${OF_CMAKE_LIBS} )
+set_target_properties(  of_static PROPERTIES LIBRARY_OUTPUT_DIRECTORY   ${OF_CMAKE_LIBS} )
+set_target_properties(  of_static PROPERTIES ARCHIVE_OUTPUT_DIRECTORY   ${OF_CMAKE_LIBS} )
+
+#set_target_properties(  of_shared PROPERTIES LIBRARY_OUTPUT_DIRECTORY   ${OF_CMAKE_LIBS} )
+#set_target_properties(  of_shared PROPERTIES LIBRARY_OUTPUT_DIRECTORY   ${OF_CMAKE_LIBS} )
 
 install( TARGETS of_static
          LIBRARY DESTINATION ${OF_CMAKE_LIBS}
